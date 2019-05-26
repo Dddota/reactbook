@@ -7,28 +7,31 @@ const counterValues={
     'Second':10,
     'Third':30
 };
+const CHANGE_EVENT = 'changed';
 
-const CounterStore=Object.assign({},EventEmitter.property,{
+const CounterStore=Object.assign({},EventEmitter.prototype,{
     getCounterValues:function () {
         return counterValues;
     },
     emitChange:function () {
         this.emit(CHANGE_EVENT);
     },
-    addEventListener:function (callback) {
+    addChangeListener:function (callback) {
         this.on(CHANGE_EVENT,callback);
     },
-    removeChangeLister: function (callback) {
-        this.removeListener(CHANGE_EVENT,callback);
+    removeChangeListener: function (callback) {
+        this.removeListener(CHANGE_EVENT, callback);
     }
 });
 
-CounterStore.dispatcherToken = AppDispatcher.register((action) =>{
-    if (action.type===ActionTypes.INCREMENT){
-        counterValues[action.counterCaption] ++;
+CounterStore.dispatcherToken = AppDispatcher.register((action) => {
+    if (action.type === ActionTypes.INCREMENT) {
+        counterValues[action.counterCaption]++;
         CounterStore.emitChange();
-    }else if (action.type===ActionTypes.DECREMENT){
-        counterValues[action.counterCaption] --;
+    } else if (action.type === ActionTypes.DECREMENT) {
+        counterValues[action.counterCaption]--;
         CounterStore.emitChange();
     }
 });
+
+export default CounterStore;
