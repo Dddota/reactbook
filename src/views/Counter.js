@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CounterStore from '../store/CounterStore';
+//import CounterStore from '../store/CounterStore';
 import * as Actions from'../Actions';
+import store from '../store/Store';
 
 const buttonStyle = {
     margin: '10px'
@@ -14,8 +15,12 @@ class Counter extends Component {
         super(props);
         //this.onClickIncrementButton = this.onClickIncrementButton.bind(this);
         //this.onClickDecrementButton = this.onClickDecrementButton.bind(this);
-        this.state = {
-            count: CounterStore.getCounterValues()[props.caption]
+        this.state = this.getOwnState();
+    }
+
+    getOwnState(){
+        return{
+            value:store.getState()[this.props.caption]
         }
     }
 
@@ -25,24 +30,28 @@ class Counter extends Component {
     }
     componentWillMount =()=>{
         console.log('enter componentWillMount ' + this.props.caption);
-        CounterStore.removeChangeListener(this.onChange);
-
+        //CounterStore.removeChangeListener(this.onChange);
     }
-
+    //已经加载
     componentDidMount=()=>{
-        console.log('enter componentDidMount ' + this.props.caption);
-        CounterStore.addChangeListener(this.onChange);
-
+        console.log('进入 已经加载' + this.props.caption);
+        //CounterStore.addChangeListener(this.onChange);
+        store.subscribe(this.onChange);
+    }
+    //将要拆卸
+    componentWillUnmount() {
+        console.log('进入 将要拆卸' + this.props.caption);
+        store.unsubscribe(this.onChange);
     }
 
     onClickIncrementButton=()=> {
         //this.updateCount(true);
-        Actions.increment(this.props.caption);
+       store.dispatch(Actions.increment(this.props.caption));
     }
 
     onClickDecrementButton=()=> {
         //this.updateCount(false);
-        Actions.decrement(this.props.caption);
+        store.dispatch(Actions.decrement(this.props.caption));
 
     }
 
@@ -52,9 +61,9 @@ class Counter extends Component {
     }
 
     onChange =()=>{
-        const newCount = CounterStore.getCounterValues()[this.props.caption];
-        this.setState({count:newCount});
-    }
+        //const newCount = CounterStore.getCounterValues()[this.props.caption];
+        this.setState(this.getOwnState());
+    };
 
     /*updateCount=(AddorMin)=> {
         const preValue = this.state.count;
@@ -64,12 +73,13 @@ class Counter extends Component {
     }*/
 
     render() {
-        console.log('enter render ' + this.props.caption);
+        console.log('开始 渲染 ' + this.props.caption);
         const {caption} = this.props;
+        const {value} = this.state.value;
         return (
             <div>
                 <button style={buttonStyle} onClick={this.onClickIncrementButton}>+</button>
-                <span>{caption} count: {this.state.count}</span>
+                <span>{caption} count: {value}</span>
                 <button style={buttonStyle} onClick={this.onClickDecrementButton}>-</button>
             </div>
         );
