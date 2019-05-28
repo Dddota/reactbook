@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 //import SummaryStore from '../store/SummaryStore';
 import store from '../store/Store';
 
-class Summary extends Component{
+function Summary(props) {
+    const{sum} =props;
+    return( <div>总点击数 {sum}</div>)
+}
+
+
+class SummaryContainer extends Component{
     constructor(props){
         super(props);
         this.state=this.getOwnState();
@@ -35,9 +41,8 @@ class Summary extends Component{
         this.setState(this.getOwnState());
     };
     render() {
-        return(
-            <div>总点击数 {this.state.sum}</div>
+        return(<Summary sum={this.state.sum} />
         )
     }
 }
-export default Summary;
+export default SummaryContainer;
