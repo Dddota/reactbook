@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 //import CounterStore from '../store/CounterStore';
 import * as Actions from'../Actions';
 import store from '../store/Store';
@@ -36,17 +36,43 @@ function Counter(props) {
     );
 }
 
+Counter.propTypes = {
+    caption:PropTypes.string.isRequired,
+    onClickIncrementButton:PropTypes.func.isRequired,
+    onClickDecrementButton:PropTypes.func.isRequired,
+    value:PropTypes.number.isRequired
+};
+
+function mapStateToProps(state,ownProps) {
+    return{
+        value:state[ownProps.caption]
+    }
+}
+function mapDispatchToProps(dispatch,ownProps) {
+    return{
+        onClickIncrementButton:()=>{
+            dispatch(Actions.increment(ownProps.state))
+        },
+        onClickDecrementButton:()=>{
+            dispatch(Actions.decrement(ownProps.state))
+        }
+
+    }
+}
+
+
 class CounterContainer extends Component{
-    constructor(props) {
-        console.log('进入构造器: ' + props.caption);
-        super(props);
+    constructor() {
+        //console.log('进入构造器: ' + props.caption);
+        super(...arguments);
         //this.onClickIncrementButton = this.onClickIncrementButton.bind(this);
         //this.onClickDecrementButton = this.onClickDecrementButton.bind(this);
         this.state = this.getOwnState();
     }
+
     getOwnState =()=>{
         return{
-            value:store.getState()[this.props.caption]
+            value:this.context.store.getState()[this.props.caption]
         }
     };
 
@@ -103,6 +129,12 @@ class CounterContainer extends Component{
     }
 
 }
+
+
+
+CounterContainer.contextTypes={
+    store:PropTypes.object
+};
 
 /*Counter.defaultProps = {
     initValue: 0,

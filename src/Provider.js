@@ -10,4 +10,11 @@ class Provider extends Component{
     render(){
         return this.props.children;
     }
+
 }
+
+Provider.childContextTypes={
+    store:PropTypes.object
+};
+
+export default Provider;

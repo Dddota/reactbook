@@ -3,9 +3,14 @@ import ReactDOM from 'react-dom';
 import ControlPanel from './views/ContolPanel';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import store from './store/Store';
+import {Provider} from  'react-redux';
 
 ReactDOM.render(
-    <ControlPanel />, document.getElementById('root')
+    <Provider store={store}>
+        <ControlPanel />
+    </Provider>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
