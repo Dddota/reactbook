@@ -1,12 +1,24 @@
-import React, { Component } from 'react';
-//import SummaryStore from '../store/SummaryStore';
-import store from '../store/Store';
+import React  from 'react';
+import {connect} from 'react-redux';
 
-function Summary(props) {
-    const{sum} =props;
-    return( <div>总点击数 {sum}</div>)
+function Summary({value}) {
+    return(
+        <div>总点击数 {value}</div>
+    );
 }
 
+function mapStateToProps(state) {
+    let sum = 0;
+    for(const key in state){
+        if (state.hasOwnProperty(key)){
+            sum +=state[key];
+        }
+    }
+    return {value:sum};
+}
+
+export default connect(mapStateToProps)(Summary);
+/*
 
 class SummaryContainer extends Component{
     constructor(props){
@@ -45,4 +57,4 @@ class SummaryContainer extends Component{
         )
     }
 }
-export default SummaryContainer;
+export default SummaryContainer;*/

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 //import CounterStore from '../store/CounterStore';
 import * as Actions from'../Actions';
-import store from '../store/Store';
+//import store from '../store/Store';
+import {connect} from 'react-redux';
 
 const buttonStyle = {
     margin: '10px'
@@ -25,8 +26,7 @@ const buttonStyle = {
     }
 }*/
 
-function Counter(props) {
-    const {caption,onClickIncrementButton,onClickDecrementButton,value}=props;
+function Counter({caption,onClickIncrementButton,onClickDecrementButton,value}) {
     return(
         <div>
             <button style={buttonStyle} onClick={onClickIncrementButton}>+</button>
@@ -48,6 +48,7 @@ function mapStateToProps(state,ownProps) {
         value:state[ownProps.caption]
     }
 }
+
 function mapDispatchToProps(dispatch,ownProps) {
     return{
         onClickIncrementButton:()=>{
@@ -61,6 +62,7 @@ function mapDispatchToProps(dispatch,ownProps) {
 }
 
 
+/*
 class CounterContainer extends Component{
     constructor() {
         //console.log('进入构造器: ' + props.caption);
@@ -72,7 +74,7 @@ class CounterContainer extends Component{
 
     getOwnState =()=>{
         return{
-            value:this.context.store.getState()[this.props.caption]
+            value:store.getState()[this.props.caption]
         }
     };
 
@@ -114,11 +116,6 @@ class CounterContainer extends Component{
         store.unsubscribe(this.onChange);
     }
 
-
-
-
-
-
     render() {
         return (
             <Counter caption ={this.props.caption}
@@ -131,14 +128,13 @@ class CounterContainer extends Component{
 }
 
 
-
 CounterContainer.contextTypes={
     store:PropTypes.object
 };
-
+*/
 /*Counter.defaultProps = {
     initValue: 0,
     //onUpdate: f=>f
 };*/
 
-export default CounterContainer;
+export default connect(mapStateToProps,mapDispatchToProps)(Counter);
