@@ -1,3 +1,4 @@
+/*
 import {Component} from 'react';
 import {PropTypes} from 'prop-types';
 
@@ -17,4 +18,4 @@ Provider.childContextTypes={
     store:PropTypes.object
 };
 
-export default Provider;
+export default Provider;*/
