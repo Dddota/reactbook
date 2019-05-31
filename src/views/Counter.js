@@ -52,12 +52,12 @@ function mapStateToProps(state,ownProps) {
 function mapDispatchToProps(dispatch,ownProps) {
     return{
         onClickIncrementButton:()=>{
-            dispatch(Actions.increment(ownProps.state))
+            debugger;
+            dispatch(Actions.increment(ownProps.caption))
         },
         onClickDecrementButton:()=>{
-            dispatch(Actions.decrement(ownProps.state))
+            dispatch(Actions.decrement(ownProps.caption))
         }
-
     }
 }
 

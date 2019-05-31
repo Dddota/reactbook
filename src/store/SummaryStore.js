@@ -1,3 +1,4 @@
+/*
 import AppDispatcher from '../AppDispatcher.js';
 import * as ActionTypes from '../ActionTypes.js';
 import CounterStore from './CounterStore.js';
@@ -45,3 +46,4 @@ SummaryStore.dispatchToken = AppDispatcher.register((action) => {
 
 export default SummaryStore;
 
+*/

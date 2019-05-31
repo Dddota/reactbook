@@ -6,5 +6,6 @@ const initValues={
     'Second':10,
     'Third':20
 };
+
 const store = createStore(reducer,initValues);
 export default store;

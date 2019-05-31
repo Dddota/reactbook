@@ -1,3 +1,4 @@
+/*
 import AppDispatcher from '../AppDispatcher';
 import * as ActionTypes from '../ActionTypes';
 import {EventEmitter} from 'events';
@@ -35,3 +36,4 @@ CounterStore.dispatcherToken = AppDispatcher.register((action) => {
 });
 
 export default CounterStore;
+*/
